@@ -32,6 +32,10 @@ nav a{text-decoration:none}
 nav a:hover{color:var(--red)}
 .phone-pill{background:#fff;color:#07111e!important;padding:12px 18px;border-radius:999px}
 .menu-btn{display:none;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:10px;padding:10px 13px;font-weight:800}
+.mobile-menu:not([hidden]){display:flex}
+.mobile-menu{flex-direction:column;background:#07111e;border-top:1px solid #16263a;padding:6px 20px 16px}
+.mobile-menu a{display:block;color:#fff;text-decoration:none;font-weight:800;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.mobile-menu a:last-child{border-bottom:none}
 
 .hero{position:relative;overflow:hidden;padding:74px 0 72px;background:
  linear-gradient(90deg,rgba(226,35,26,.055) 1px,transparent 1px),
@@ -42,7 +46,7 @@ nav a:hover{color:var(--red)}
 .hero-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:58px;align-items:start;position:relative;z-index:1}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--red);font-size:12px;font-weight:950;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
 .eyebrow:before{content:"";width:30px;height:4px;background:var(--red)}
-h1{font-size:clamp(21px,2.5vw,34px);line-height:1.05;letter-spacing:-1.5px;margin:0 0 25px;max-width:790px}
+h1{font-size:clamp(25px,3vw,41px);line-height:1.05;letter-spacing:-1.8px;margin:0 0 25px;max-width:790px}
 .accent{color:var(--red)}
 .free{display:inline-flex;align-items:center;gap:12px;margin:8px 0 27px;border:1px solid #f1b6b2;background:#fff6f5;padding:13px 17px;border-radius:14px;font-weight:900}
 .free b{color:var(--red)}
@@ -152,7 +156,7 @@ footer{background:#07111e;color:#fff;padding:34px 0}
  .hero{padding-top:45px}
  .problem-grid,.steps-grid,.ctas,form{grid-template-columns:1fr}
  .cta.phone,.full{grid-column:auto}
- h1{font-size:43px}
+ h1{font-size:26px;letter-spacing:-1px}
  .info{padding:22px}
  .calendar-wrap{width:100%;overflow:hidden}
  .cal-frame{height:760px}
@@ -177,8 +181,13 @@ footer{background:#07111e;color:#fff;padding:34px 0}
     </nav>
     <button class="menu-btn" onclick="document.getElementById('mobileMenu').hidden=!document.getElementById('mobileMenu').hidden">Menú</button>
   </div>
-  <div id="mobileMenu" hidden style="padding:0 20px 18px;background:#fff">
-    <a href="#problemas">Qué le pasa</a> · <a href="#datos">Tus datos</a> · <a href="#recogida">Recogida</a> · <a href="#cita">Pedir cita</a> · <a href="#guia">Guía Lenovo</a> · <a href="#contacto">Contacto</a>
+  <div id="mobileMenu" class="mobile-menu" hidden>
+    <a href="#problemas">Qué le pasa</a>
+    <a href="#datos">Tus datos</a>
+    <a href="#recogida">Recogida</a>
+    <a href="#cita">Pedir cita</a>
+    <a href="#guia">Guía Lenovo</a>
+    <a href="#contacto">Contacto</a>
   </div>
 </header>
 
@@ -431,7 +440,7 @@ footer{background:#07111e;color:#fff;padding:34px 0}
 
   @media (max-width: 600px) {
     .chat-window-wrapper {
-      bottom: 170px !important;
+      bottom: 96px !important;
       right: 0 !important;
       left: 0 !important;
       width: 100vw !important;
@@ -448,7 +457,7 @@ footer{background:#07111e;color:#fff;padding:34px 0}
 
     .chat-window-toggle {
       align-self: flex-end !important;
-      margin-right: 20px !important;
+      margin-right: 14px !important;
       order: 2 !important;
     }
   }
