@@ -107,7 +107,7 @@ module.exports = async function handler(req, res) {
   try {
     const transporter = getTransporter();
     await transporter.sendMail({
-      from: `"LenovoTech ThinkCentre" <${process.env.SMTP_USER}>`,
+      from: `"LenovoRepair" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_EMAIL,
       replyTo: email,
       subject: `Nueva consulta web · ${nombre}`,
