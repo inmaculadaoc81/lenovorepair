@@ -1,18 +1,133 @@
-import {google} from 'googleapis';
-const clean=(v,m=2000)=>String(v??'').replace(/[<>]/g,'').trim().slice(0,m);
-export default async function handler(req,res){
- const required=['GOOGLE_CLIENT_ID','GOOGLE_CLIENT_SECRET','GOOGLE_REFRESH_TOKEN','GOOGLE_EMAIL','CONTACT_EMAIL'];
- if(req.method==='GET') return res.status(200).json({ok:true,service:'LenovoRepair contacto API',node:process.version,environment:Object.fromEntries(required.map(k=>[k,Boolean(process.env[k])]))});
- if(req.method!=='POST') return res.status(405).json({ok:false,code:'METHOD_NOT_ALLOWED'});
- try{
-  if(required.some(k=>!process.env[k])) return res.status(500).json({ok:false,code:'MISSING_ENVIRONMENT_VARIABLES'});
-  const {nombre,telefono,email,modelo,mensaje,website}=req.body||{}; if(website)return res.status(200).json({ok:true});
-  const n=clean(nombre,80),t=clean(telefono,30),e=clean(email,120),mo=clean(modelo,140),msg=clean(mensaje,2000);
-  if(!n||!t||!e||!msg) return res.status(400).json({ok:false,code:'INVALID_FORM_DATA'});
-  const auth=new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID,process.env.GOOGLE_CLIENT_SECRET);auth.setCredentials({refresh_token:process.env.GOOGLE_REFRESH_TOKEN});await auth.getAccessToken();
-  const gmail=google.gmail({version:'v1',auth});const subject='Nueva consulta LenovoRepair Valladolid';
-  const body=`<h2>Nueva consulta LenovoRepair</h2><p><b>Nombre:</b> ${n}</p><p><b>Teléfono:</b> ${t}</p><p><b>Email:</b> ${e}</p><p><b>Modelo Lenovo:</b> ${mo||'No indicado'}</p><p><b>Avería:</b><br>${msg.replace(/\n/g,'<br>')}</p>`;
-  const raw=[`From: LenovoRepair <${process.env.GOOGLE_EMAIL}>`,`To: ${process.env.CONTACT_EMAIL}`,`Reply-To: ${e}`,`Subject: =?UTF-8?B?${Buffer.from(subject).toString('base64')}?=`,'MIME-Version: 1.0','Content-Type: text/html; charset=UTF-8','',body].join('\r\n');
-  await gmail.users.messages.send({userId:'me',requestBody:{raw:Buffer.from(raw).toString('base64url')}});return res.status(200).json({ok:true});
- }catch(e){return res.status(500).json({ok:false,code:'EMAIL_SEND_FAILED'})}
+// api/contacto.js
+// Vercel Serverless Function: recibe el formulario de contacto de index.html
+// y envía un email vía SMTP usando nodemailer.
+//
+// GET  /api/contacto  -> diagnóstico: indica (true/false) qué variables de
+//                        entorno SMTP están configuradas, sin revelar sus valores.
+// POST /api/contacto  -> envía el email con los datos del formulario.
+
+const nodemailer = require('nodemailer');
+
+const REQUIRED_ENV_VARS = [
+  'SMTP_HOST',
+  'SMTP_PORT',
+  'SMTP_SECURE',
+  'SMTP_USER',
+  'SMTP_PASS',
+  'CONTACT_EMAIL',
+];
+
+let cachedTransporter = null;
+
+function getTransporter() {
+  if (cachedTransporter) return cachedTransporter;
+
+  cachedTransporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT) || 465,
+    secure: String(process.env.SMTP_SECURE).toLowerCase() === 'true',
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+
+  return cachedTransporter;
 }
+
+function isValidEmail(value) {
+  return typeof value === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+module.exports = async function handler(req, res) {
+  if (req.method === 'GET') {
+    const status = {};
+    REQUIRED_ENV_VARS.forEach((key) => {
+      status[key] = Boolean(process.env[key] && String(process.env[key]).trim());
+    });
+    res.status(200).json(status);
+    return;
+  }
+
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'GET, POST');
+    res.status(405).json({ ok: false, code: 'METHOD_NOT_ALLOWED' });
+    return;
+  }
+
+  const missingEnv = REQUIRED_ENV_VARS.filter(
+    (key) => !process.env[key] || !String(process.env[key]).trim()
+  );
+  if (missingEnv.length) {
+    console.error('Faltan variables de entorno SMTP:', missingEnv.join(', '));
+    res.status(500).json({ ok: false, code: 'SERVER_NOT_CONFIGURED' });
+    return;
+  }
+
+  let body = req.body;
+  if (typeof body === 'string') {
+    try {
+      body = JSON.parse(body);
+    } catch (err) {
+      res.status(400).json({ ok: false, code: 'INVALID_JSON' });
+      return;
+    }
+  }
+  body = body || {};
+
+  const nombre = String(body.nombre || '').trim();
+  const telefono = String(body.telefono || '').trim();
+  const email = String(body.email || '').trim();
+  const equipo = String(body.equipo || '').trim();
+  const mensaje = String(body.mensaje || '').trim();
+
+  if (!nombre || !telefono || !email || !equipo || !mensaje) {
+    res.status(400).json({ ok: false, code: 'MISSING_FIELDS' });
+    return;
+  }
+  if (!isValidEmail(email)) {
+    res.status(400).json({ ok: false, code: 'INVALID_EMAIL' });
+    return;
+  }
+  const MAX_LEN = 3000;
+  if ([nombre, telefono, email, equipo, mensaje].some((v) => v.length > MAX_LEN)) {
+    res.status(400).json({ ok: false, code: 'FIELD_TOO_LONG' });
+    return;
+  }
+
+  try {
+    const transporter = getTransporter();
+    await transporter.sendMail({
+      from: `"LenovoTech ThinkCentre" <${process.env.SMTP_USER}>`,
+      to: process.env.CONTACT_EMAIL,
+      replyTo: email,
+      subject: `Nueva consulta web · ${nombre}`,
+      text:
+        `Nombre: ${nombre}\n` +
+        `Teléfono: ${telefono}\n` +
+        `Email: ${email}\n` +
+        `Modelo Lenovo: ${equipo}\n\n` +
+        `Mensaje:\n${mensaje}`,
+      html:
+        `<p><strong>Nombre:</strong> ${escapeHtml(nombre)}</p>` +
+        `<p><strong>Teléfono:</strong> ${escapeHtml(telefono)}</p>` +
+        `<p><strong>Email:</strong> ${escapeHtml(email)}</p>` +
+        `<p><strong>Modelo Lenovo:</strong> ${escapeHtml(equipo)}</p>` +
+        `<p><strong>Mensaje:</strong><br>${escapeHtml(mensaje).replace(/\n/g, '<br>')}</p>`,
+    });
+
+    res.status(200).json({ ok: true });
+  } catch (err) {
+    console.error('Error enviando el correo de contacto:', err);
+    res.status(502).json({ ok: false, code: 'SEND_FAILED' });
+  }
+};
