@@ -4,18 +4,11 @@ Rebrand a partir de la plantilla "LenovoTech ThinkCentre" (Madrid), adaptada a l
 marca LenovoRepair (Valladolid) según instrucción del cliente.
 
 Dominio:
-https://thinkcentre.es/
-PENDIENTE DE CONFIRMAR: el canonical, og:url, JSON-LD "url" y el enlace de Cal.com/
-mapa siguen apuntando al dominio original de la plantilla porque no se ha indicado
-el dominio real de LenovoRepair. Actualizar en cuanto se confirme.
-
-⚠️ COLISIÓN DE DOMINIO CONFIRMADA: este dominio (thinkcentre.es) coincide
-exactamente con el del repositorio "LenovoTech" (LenovoTech ThinkCentre,
-Madrid), que es su plantilla de origen. Mismo patrón que se dio con
-DysonValladolid y ThermomixValladolid, donde el cliente confirmó
-después un dominio real distinto para la versión de Valladolid. No se
-ha tocado el dominio en esta pasada; pendiente de que el cliente
-confirme el dominio real de LenovoRepair.
+https://chipfix.es/
+(CONFIRMADO por el cliente. Corregido en canonical, og:url y JSON-LD —
+antes apuntaban a thinkcentre.es, el dominio de la plantilla de origen,
+LenovoTech Madrid. Este repositorio no tiene robots.txt ni sitemap.xml
+propios, así que no hay más archivos que actualizar.)
 
 Logo e icono:
 Se han sustituido por los archivos proporcionados por el cliente:
