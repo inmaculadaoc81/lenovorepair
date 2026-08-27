@@ -102,10 +102,15 @@ REVISIÓN ADICIONAL (esta pasada):
 - H1 reescrito, corto, directo y totalmente afirmativo (sin
   interrogación ni condicionales, incluye la marca) — el anterior
   tenía 18 palabras: "Tu Lenovo no funciona. Cuidamos tus archivos y
-  lo reparamos." NO se ha aumentado el tamaño de fuente: existe una
-  decisión previa y documentada de reducirlo un 50% (ver commits
-  "Reducir tamaño del H1 un 50%" y "ajusta tamaño del H1"), se
-  respeta tal cual.
+  lo reparamos." En su momento NO se aumentó el tamaño de fuente por
+  la decisión previa documentada de reducirlo un 50% (commits
+  "Reducir tamaño del H1 un 50%" y "ajusta tamaño del H1").
+
+REVISIÓN ADICIONAL (a petición del cliente — el título se veía
+demasiado pequeño en móvil y escritorio):
+- H1 aumentado al estándar de la familia: clamp(25-41px) →
+  clamp(46-74px) en escritorio, 26px → 48px en móvil (≤600px). Esto
+  sustituye la reducción del 50% aplicada anteriormente.
 - .phone-pill: el texto largo ("Atención Telefónica 24 horas 365
   días") deformaba la píldora del menú. Acortado a solo el número
   (mismo número, +34 918 29 06 56, sin cambios) y añadido
