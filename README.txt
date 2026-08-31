@@ -116,3 +116,28 @@ demasiado pequeño en móvil y escritorio):
   (mismo número, +34 918 29 06 56, sin cambios) y añadido
   white-space:nowrap como salvaguarda. El botón grande .cta.phone del
   hero conserva su texto completo.
+
+REVISIÓN ADICIONAL (checklist unificado de la familia, a petición del cliente):
+- H1 repetía la plantilla "no funciona" usada en varios repos.
+  Reescrito con síntoma específico y distinto del de LenovoTech
+  (repo hermano de Madrid): "Tu Lenovo no carga o va muy lento. Lo
+  arreglamos." (10 palabras).
+- BUG REAL — dos textos decorativos gigantes sin reducción de tamaño
+  en móvil/tablet: ".problems:after" ("LENOVO", 180px) y
+  ".data-art:before" ("DATOS", 115px), mismo bug ya corregido en
+  LenovoTech (este repo comparte plantilla). Añadida reducción en
+  tablet (100px/75px) y móvil (56px/46px). El de "LENOVOREPAIR" ya se
+  ocultaba en móvil, no se ha tocado.
+- BUG REAL — ninguno de los dos botones CTA del hero (WhatsApp ni
+  teléfono) tenía icono. Añadidos ambos (verificado con cuidado el
+  cierre de las etiquetas </a>).
+- BUG REAL — el formulario no tenía ninguna casilla de consentimiento
+  de política de privacidad. Añadida, con enlace a
+  https://kelatos.com/privacy-policy/ en azul y subrayado.
+- Añadida franja de aviso de servicio técnico independiente debajo
+  del menú (no existía).
+- Añadido "Sábados, domingos y días festivos estamos cerrados" debajo
+  del horario.
+- Verificado: schema.org ya usaba correctamente el teléfono de la
+  caja de información; formulario correctamente conectado a
+  /api/contacto.

@@ -33,6 +33,8 @@ body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;color:var(--ink);back
 a{color:inherit}
 .wrap{width:min(1180px,calc(100% - 40px));margin:auto}
 header{position:sticky;top:0;z-index:9000;background:#07111e;border-bottom:1px solid #16263a}
+.disclaimer-bar{background:#ffce31;color:#07111e;text-align:center;font-size:12.5px;font-weight:800;padding:8px 16px}
+.privacy-link{color:#4da3ff;text-decoration:underline}
 .nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .logo{height:38px;width:auto;display:block}
 nav{display:flex;align-items:center;gap:26px;font-weight:800;font-size:14px;color:#fff}
@@ -158,6 +160,8 @@ footer{background:#07111e;color:#fff;padding:34px 0}
  h1{letter-spacing:-2px}
  .hero:before{display:none}
  .youtube-card{grid-template-columns:1fr}
+ .problems:after{font-size:100px}
+ .data-art:before{font-size:75px}
 }
 @media(max-width:600px){
  .wrap{width:min(100% - 28px,1180px)}
@@ -170,6 +174,8 @@ footer{background:#07111e;color:#fff;padding:34px 0}
  .cal-frame{height:760px}
  .footer{align-items:flex-start;flex-direction:column}
  .float-wa{right:14px}
+ .problems:after{font-size:56px}
+ .data-art:before{font-size:46px;left:16px;top:20px}
 }
 </style>
 </head>
@@ -197,6 +203,7 @@ footer{background:#07111e;color:#fff;padding:34px 0}
     <a href="#guia">Guía Lenovo</a>
     <a href="#contacto">Contacto</a>
   </div>
+  <div class="disclaimer-bar">Somos un servicio técnico independiente. No vemos equipos en garantía.</div>
 </header>
 
 <main>
@@ -204,12 +211,12 @@ footer{background:#07111e;color:#fff;padding:34px 0}
  <div class="wrap hero-grid">
   <div>
     <div class="eyebrow">Cuando tu Lenovo deja de funcionar, lo urgente no es saber qué pieza es</div>
-    <h1>Tu Lenovo no funciona. <span class="accent">Cuidamos tus archivos y lo reparamos.</span></h1>
+    <h1>Tu Lenovo <span class="accent">no carga o va muy lento</span>. Lo arreglamos.</h1>
     <div class="free"><span>✓</span><div><b>Diagnóstico gratuito</b><br><small>Revisamos el equipo para entender qué ocurre antes de decidir la reparación.</small></div></div>
     <div class="ctas">
-      <a class="cta whatsapp" href="https://api.whatsapp.com/send?phone=34649970128&text=%C2%A1Hola%20Kelatos!" target="_blank" rel="noopener">WhatsApp | Atención 24 horas 365 días | +34 649 97 01 28</a>
+      <a class="cta whatsapp" href="https://api.whatsapp.com/send?phone=34649970128&text=%C2%A1Hola%20Kelatos!" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" aria-hidden="true" width="22" height="22" fill="currentColor" style="margin-right:8px"><path d="M16 3.5A12.4 12.4 0 0 0 5.3 22l-1.6 6.2 6.35-1.66A12.4 12.4 0 1 0 16 3.5Zm0 22.5a10.1 10.1 0 0 1-5.16-1.4l-.37-.22-3.77.99 1.01-3.66-.24-.39A10.1 10.1 0 1 1 16 26Zm5.54-7.55c-.3-.15-1.8-.89-2.08-.99-.28-.1-.49-.15-.69.15-.2.3-.8.99-.98 1.19-.18.2-.36.23-.67.08-.3-.15-1.29-.48-2.46-1.52-.91-.81-1.52-1.82-1.7-2.12-.18-.3-.02-.47.14-.62.14-.14.3-.36.46-.54.16-.18.2-.3.31-.51.1-.2.05-.39-.03-.54-.08-.15-.7-1.68-.96-2.3-.25-.6-.51-.52-.69-.53h-.6c-.2 0-.54.08-.82.39-.28.3-1.08 1.06-1.08 2.59 0 1.52 1.11 2.99 1.26 3.2.15.2 2.18 3.34 5.29 4.69.74.32 1.32.51 1.77.65.74.24 1.41.2 1.95.12.6-.09 1.8-.73 2.05-1.45.25-.71.25-1.32.18-1.45-.08-.13-.29-.2-.59-.35Z"/></svg>WhatsApp | Atención 24 horas 365 días | +34 649 97 01 28</a>
       <a class="cta pickup" href="https://sis.redsys.es/tiendaWeb/item/NDk4OzI%3D" target="_blank" rel="noopener">Solicita tu recogida ahora</a>
-      <a class="cta phone" href="tel:+34918290656">Atención Telefónica 24 horas 365 días</a>
+      <a class="cta phone" href="tel:+34918290656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="20" height="20" style="margin-right:8px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Atención Telefónica 24 horas 365 días</a>
     </div>
   </div>
 
@@ -217,7 +224,7 @@ footer{background:#07111e;color:#fff;padding:34px 0}
     <div class="label">Información de contacto</div>
     <h2>LenovoRepair Valladolid</h2>
     <div class="info-row"><small>Zona de servicio</small><strong>Valladolid capital y alrededores</strong></div>
-    <div class="info-row"><small>Horario</small><strong>Lunes a viernes · 09:30–18:00</strong></div>
+    <div class="info-row"><small>Horario</small><strong>Lunes a viernes · 09:30–18:00<br>Sábados, domingos y días festivos estamos cerrados</strong></div>
     <div class="info-row"><small>Teléfono de información</small><strong>+34 918 29 06 56</strong></div>
     <div class="info-row"><small>Servicio</small><strong>Reparación de ordenadores Lenovo en Valladolid</strong></div>
     <a class="maplink" href="https://maps.app.goo.gl/jhFVft6AcvbF5AAf7" target="_blank" rel="noopener">Ver ubicación y reseñas →</a>
@@ -365,6 +372,7 @@ footer{background:#07111e;color:#fff;padding:34px 0}
     <input name="email" type="email" placeholder="Email" required>
     <input name="equipo" placeholder="Modelo Lenovo, si lo sabes" required>
     <textarea class="full" name="mensaje" placeholder="¿Qué le ocurre? ¿Qué información necesitas conservar? ¿Para cuándo necesitas el equipo?" required></textarea>
+    <label class="full" style="font-size:14px"><input type="checkbox" required style="width:auto;margin-right:8px"> Acepto la <a class="privacy-link" href="https://kelatos.com/privacy-policy/" target="_blank" rel="noopener">política de privacidad</a>.</label>
     <button class="submit full" type="submit">Enviar consulta</button>
     <p id="form-status" class="full" aria-live="polite"></p>
    </form>
