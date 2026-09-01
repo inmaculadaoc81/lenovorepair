@@ -1,5 +1,25 @@
 LENOVOREPAIR — DESPLIEGUE EN VERCEL
 
+REVISIÓN ADICIONAL (checklist unificado de la familia, a petición del cliente — repo 4/48):
+- BUG REAL — enlace de Cal.com desactualizado. Actualizado a
+  https://cal.com/kelatos/30min?embed=true&theme=light&attendeePhoneNumber=%2B34&overlayCalendar=true.
+- Verificado: el correo soporte@kelatos.com no aparece visible.
+- BUG REAL — el mensaje prellenado de WhatsApp decía "¡Hola Kelatos!".
+  Corregido a "¡Hola LenovoRepair!" en el CTA del hero y en el botón
+  flotante.
+- BUG REAL — mismo bug que en el repo hermano LenovoTech (comparten
+  plantilla): el menú móvil (#mobileMenu) no tenía ningún listener
+  que lo cerrara al pulsar un enlace. Añadido el mismo script.
+- Verificado: los dos iconos con width/height fijos en el hero son
+  cuadrados en proporción, sin deformación.
+- Verificado: el H1 en móvil ya está en 48px.
+- BUG REAL — mismo bug que en LenovoTech: botones del hero (.cta) con
+  border-radius de 15px y sin oscurecimiento en hover. Aumentado a
+  border-radius:999px; añadido filter:brightness(.88) en
+  whatsapp/pickup y fondo #07111e sólido en el botón de teléfono al
+  pasar el ratón (el mismo tono oscuro de cabecera/footer de esta
+  marca), conservando el efecto de elevación ya existente.
+
 Rebrand a partir de la plantilla "LenovoTech ThinkCentre" (Madrid), adaptada a la
 marca LenovoRepair (Valladolid) según instrucción del cliente.
 
