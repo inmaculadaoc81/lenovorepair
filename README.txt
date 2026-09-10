@@ -172,3 +172,15 @@ REVISIÓN ADICIONAL (nueva regla de menú móvil, a petición del cliente):
   requería cambios.
 - Verificado de nuevo: el checklist de 7 puntos de la familia ya
   estaba aplicado de una pasada anterior; no requería cambios.
+
+SITEMAP Y ROBOTS.TXT (a petición del cliente, dominio confirmado en vivo):
+- Esto resuelve además la colisión pendiente anotada en el README de
+  LenovoTech: el dominio real de lenovorepair es chipfix.es
+  (confirmado accediendo en vivo: la home carga "LenovoRepair® |
+  Servicio Técnico y Reparación Lenovo en Valladolid"), distinto de
+  thinkcentre.es (que sí es de LenovoTech, Madrid). El código ya
+  usaba correctamente chipfix.es en canonical/og:url/JSON-LD.
+- BUG REAL — no existía ni sitemap.xml ni robots.txt en todo el
+  repositorio (chipfix.es/sitemap.xml y chipfix.es/robots.txt daban
+  ambos 404 NOT_FOUND, aunque la home funcionaba bien). Creados los
+  dos, mismo patrón encontrado antes en LenovoTech.
