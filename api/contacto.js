@@ -6,7 +6,7 @@
 //                        entorno SMTP están configuradas, sin revelar sus valores.
 // POST /api/contacto  -> envía el email con los datos del formulario.
 
-const nodemailer = require('nodemailer');
+const nodemailer=require("./_correo.js");
 
 const REQUIRED_ENV_VARS = [
   'SMTP_HOST',
