@@ -371,6 +371,7 @@ footer{background:#07111e;color:#fff;padding:34px 0}
   </div>
   <div>
    <form id="contact-form">
+    <input type="text" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" value="">
     <input name="nombre" placeholder="Nombre" required>
     <input name="telefono" placeholder="Teléfono" required>
     <input name="email" type="email" placeholder="Email" required>
@@ -540,12 +541,13 @@ resetTimer();
 <script>
 const form=document.getElementById('contact-form');
 const statusEl=document.getElementById('form-status');
+const formLoadedAt=Date.now();
 form.addEventListener('submit',async(e)=>{
  e.preventDefault();
  const btn=form.querySelector('button[type=submit]');
  btn.disabled=true; statusEl.textContent='Enviando...'; statusEl.style.color='#555';
  try{
-  const r=await fetch('/api/contacto',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(form).entries()))});
+  const r=await fetch('/api/contacto',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign(Object.fromEntries(new FormData(form).entries()),{ts:formLoadedAt}))});
   const d=await r.json().catch(()=>({}));
   if(!r.ok||!d.ok) throw new Error(d.code||'SEND_FAILED');
   statusEl.textContent='Consulta enviada correctamente.';statusEl.style.color='#18743a';form.reset();
