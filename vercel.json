@@ -28,9 +28,28 @@
       "permanent": true
     },
     {
-      "source": "/((?!(?:package-lock\\.json|package-lock|package\\.json|sitemap\\.xml|vercel\\.json|index\\.html|README\\.txt|robots\\.txt|_vercel|package|sitemap|assets|README|robots|vercel|index|api)(?:[/.]|$)).+)",
+      "source": "/((?!(?:blog|package-lock\\.json|package-lock|package\\.json|sitemap\\.xml|vercel\\.json|index\\.html|README\\.txt|robots\\.txt|_vercel|package|sitemap|assets|README|robots|vercel|index|api)(?:[/.]|$)).+)",
       "destination": "/",
       "permanent": true
+    }
+  ],
+  "functions": {
+    "api/blog.js": {
+      "includeFiles": "index.html"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/blog",
+      "destination": "/api/blog"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/api/blog?slug=:slug"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
     }
   ]
 }
